@@ -1,0 +1,40 @@
+#!/usr/bin/bash
+select mode in "list database" "create data base" "connect to data base" "exit"
+do
+case $mode in 
+"list database")
+if [ -d ~/meyasql ] 
+then
+ls ~/meyasql
+else 
+mkdir ~/meyasql
+ls ~/meyasql
+fi
+;;
+"create data base")
+echo "please enter database name"
+read databaseName
+if [ ! -d ~/meyasql/$databaseName ] 
+then
+mkdir -p ~/meyasql/$databaseName
+echo "database created"
+else 
+echo "database already exist"
+fi
+;;
+"connect to data base")
+echo "please enter database name"
+read databaseName
+if [ -d ~/meyasql/$databaseName ] 
+then
+cd ~/meyasql/$databaseName
+echo "database connected"
+else 
+echo "data base doesnot exist"
+fi
+;;
+"exit")
+exit
+;;
+esac
+done
