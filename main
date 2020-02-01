@@ -49,6 +49,7 @@ if [ "$(ls -A ~/meyasql/$databaseName/$tableName)" ]
 then
 echo "That table already exists .. !!!"
 else 
+#error
 mkdir ~/meyasql/$databaseName/$tableName
 cd $tableName
 touch $tableName.table
