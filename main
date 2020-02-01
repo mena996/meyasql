@@ -31,15 +31,28 @@ cd ~/meyasql/$databaseName
 
 
 
-select operation in "List tables"  "Insert" "Delete" "Select" "Exit"
+select operation in "List tables" "Create table"  "Insert" "Delete" "Select" "Exit"
 do
 case $operation in
 "List tables")
-if [ -d ~/meyasql/$databaseName ] 
+if [ "$(ls -A ~/meyasql/$databaseName)" ]
 then
-ls ~/meyasql/$databaseName 
-else 
+ls ~/meyasql/$databaseName
+else
 echo "No tables found...!!!"
+fi
+;;
+"Create table")
+echo "Enter Table Name"
+read tableName
+if [ "$(ls -A ~/meyasql/$databaseName/$tableName)" ] 
+then
+echo "That table already exists .. !!!"
+else 
+mkdir ~/meyasql/$databaseName/$tableName
+cd $tableName
+touch $tableName.table
+touch $tableName.md
 fi
 ;;
 "Insert")
@@ -52,6 +65,7 @@ fi
 break 1
 esac
 done
+
 
 
 
