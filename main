@@ -28,7 +28,34 @@ read databaseName
 if [ -d ~/meyasql/$databaseName ] 
 then
 cd ~/meyasql/$databaseName
-echo "database connected"
+
+
+
+select operation in "List tables"  "Insert" "Delete" "Select" "Exit"
+do
+case $operation in
+"List tables")
+if [ -d ~/meyasql/$databaseName ] 
+then
+ls ~/meyasql/$databaseName 
+else 
+echo "No tables found...!!!"
+fi
+;;
+"Insert")
+;;
+"Delete")
+;;
+"Select")
+;;
+"Exit")
+break 1
+esac
+done
+
+
+
+#echo "database connected"
 else 
 echo "data base doesnot exist"
 fi
