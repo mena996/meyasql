@@ -23,8 +23,6 @@ if [ -f "~/meyasql/$databaseName/$tableName)" ]
 then
 echo "That table already exists .. !!!"
 else 
-mkdir ~/meyasql/$databaseName/$tableName
-cd ~/meyasql/$databaseName/$tableName
 touch $tableName
 touch ".$tableName"
 fi
@@ -34,6 +32,9 @@ fi
 "Delete")
 ;;
 "Select")
+cd /home/yehya/BashScript/BashProject/meyasql
+pwd
+. ./selectTable.sh
 ;;
 "Exit")
 break 1
