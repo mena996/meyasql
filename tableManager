@@ -28,12 +28,13 @@ touch ".$tableName"
 fi
 ;;
 "Insert")
+cd /home/yehya/BashScript/BashProject/meyasql
+. ./insertTable.sh
 ;;
 "Delete")
 ;;
 "Select")
 cd /home/yehya/BashScript/BashProject/meyasql
-pwd
 . ./selectTable.sh
 ;;
 "Exit")
