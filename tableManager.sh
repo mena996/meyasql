@@ -15,26 +15,26 @@ fi
 "Create table")
 echo "Enter Table Name"
 read tableName
-if [ -f "~/meyasql/$databaseName/$tableName)" ] 
-then
+
+ls ~/meyasql/$databaseName/$tableName
+# if [ -f "~/meyasql/$databaseName/$tableName" ]; then
+if [ -f "/home/yahya/meyasql/$databaseName/$tableName" ]; then
 echo "That table already exists .. !!!"
+. ./tableManager.sh
 else
 touch ~/meyasql/$databaseName/$tableName
 touch ~/meyasql/$databaseName/.$tableName
 inputFlag="false"
 . ./createColoumn.sh 
 echo "The table created Successfully ... !!!"
-
 fi
 ;;
 "Insert")
-#cd /home/yahya/BashScript/BashProject/meyasql
 . ./insertTable.sh
 ;;
 "Delete")
 ;;
 "Select")
-#cd /home/yahya/BashScript/BashProject/meyasql
 . ./selectTable.sh
 ;;
 "Exit")

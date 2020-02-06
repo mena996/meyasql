@@ -28,7 +28,8 @@ read databaseName
 if [ -d ~/meyasql/$databaseName ] 
 then
 echo "database connected"
-. ./tableManager
+. ./tableManager.sh
+fi
 ;;
 "exit")
 exit
