@@ -1,10 +1,6 @@
 #!/usr/bin/bash
-echo "please enter database name"
-read databaseName
-if [ -d ~/meyasql/$databaseName ] 
-then
-cd ~/meyasql/$databaseName
-echo "database connected"
+
+
 select operation in "List tables" "Create table"  "Insert" "Delete" "Select" "Exit"
 do
 case $operation in
@@ -22,23 +18,29 @@ read tableName
 if [ -f "~/meyasql/$databaseName/$tableName)" ] 
 then
 echo "That table already exists .. !!!"
-else 
-touch $tableName
-touch ".$tableName"
+else
+touch ~/meyasql/$databaseName/$tableName
+touch ~/meyasql/$databaseName/.$tableName
+inputFlag="false"
+. ./createColoumn.sh 
+echo "The table created Successfully ... !!!"
+
 fi
 ;;
 "Insert")
-cd /home/yehya/BashScript/BashProject/meyasql
+#cd /home/yahya/BashScript/BashProject/meyasql
 . ./insertTable.sh
 ;;
 "Delete")
 ;;
 "Select")
-cd /home/yehya/BashScript/BashProject/meyasql
+#cd /home/yahya/BashScript/BashProject/meyasql
 . ./selectTable.sh
 ;;
 "Exit")
-break 1
+#break 1
+#cd /home/yahya/BashScript/BashProject/meyasql
+. ./main
 esac
 done
 else 

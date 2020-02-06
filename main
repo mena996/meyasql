@@ -23,6 +23,11 @@ echo "database already exist"
 fi
 ;;
 "connect to data base")
+echo "please enter database name"
+read databaseName
+if [ -d ~/meyasql/$databaseName ] 
+then
+echo "database connected"
 . ./tableManager
 ;;
 "exit")
