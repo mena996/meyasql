@@ -12,6 +12,7 @@ IFS=","
 
 select choice in ${arrOptions[*]} ;
 do
+    #Input Field Separator
     IFS="${old_IFS}"
     case $REPLY in
         1 ) check=`cat ~/meyasql/$databaseName/.$tableName`
