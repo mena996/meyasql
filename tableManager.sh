@@ -42,7 +42,7 @@ do
   echo "$fieldName:integer" >>".$tableName"
   break;
   ;;
-  "string")
+  "string")recodNo
   echo "$fieldName:string" >>".$tableName"
   break;
   ;;
@@ -53,12 +53,25 @@ done
 fi
 ;;
 "Insert")
-. ./insertTable.sh
+. $home/insertTable.sh
 ;;
 "Delete")
+echo -n "enter the name of table to show from ( $databaseName ) :  "
+read tableName
+while [ ! -f ~/meyasql/$databaseName/$tableName ]
+do
+echo -n "table doesnot exist!!!"
+echo -n "enter the name of table to show from ( $databaseName ) :  "
+read tableName
+done
+echo -n "enter the number of record you want to delete from  ( $tableName ) :  "
+read recodNo
+rm -f temp
+awk -F:  -v val="$recodNo" 'BEGIN{c=1}{if(val!=c) print $0; c=c+1}' $tableName  >> temp  
+cat temp > $tableName
 ;;
 "Select")
-. ./selectTable.sh
+. $home/selectTable.sh
 ;;
 "Exit")
 cd $home
