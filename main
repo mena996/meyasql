@@ -1,4 +1,5 @@
 #!/usr/bin/bash
+home=`pwd`
 select mode in "list database" "create data base" "connect to data base" "exit"
 do
 case $mode in 
@@ -10,7 +11,7 @@ else
 mkdir ~/meyasql
 ls ~/meyasql
 fi
-;;
+;; 
 "create data base")
 echo "please enter database name"
 read databaseName

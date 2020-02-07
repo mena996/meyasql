@@ -1,6 +1,10 @@
-#!/usr/bin/bash
-
-
+#!/usr/bin/bash 
+echo "please enter database name"
+read databaseName
+if [ -d ~/meyasql/$databaseName ] 
+then
+cd ~/meyasql/$databaseName
+echo "database connected"
 select operation in "List tables" "Create table"  "Insert" "Delete" "Select" "Exit"
 do
 case $operation in
@@ -15,18 +19,37 @@ fi
 "Create table")
 echo "Enter Table Name"
 read tableName
-
-ls ~/meyasql/$databaseName/$tableName
-# if [ -f "~/meyasql/$databaseName/$tableName" ]; then
-if [ -f "/home/yahya/meyasql/$databaseName/$tableName" ]; then
+if [ -f "~/meyasql/$databaseName/$tableName)" ] 
+then
 echo "That table already exists .. !!!"
-. ./tableManager.sh
-else
-touch ~/meyasql/$databaseName/$tableName
-touch ~/meyasql/$databaseName/.$tableName
-inputFlag="false"
-. ./createColoumn.sh 
-echo "The table created Successfully ... !!!"
+else 
+touch $tableName
+touch ".$tableName"
+
+while true; 
+do
+  echo "please enter field name (press . to exit)"
+  read fieldName
+  if [ $fieldName == '.' ]
+  then
+    break;
+  fi
+  echo "please enter field type (integer or string)"
+  select operation in "integer" "string"
+  do
+  case $operation in
+  "integer")
+  echo "$fieldName:integer" >>".$tableName"
+  break;
+  ;;
+  "string")
+  echo "$fieldName:string" >>".$tableName"
+  break;
+  ;;
+  esac
+  done
+done
+
 fi
 ;;
 "Insert")
@@ -38,9 +61,8 @@ fi
 . ./selectTable.sh
 ;;
 "Exit")
-#break 1
-#cd /home/yahya/BashScript/BashProject/meyasql
-. ./main
+cd $home
+break 1
 esac
 done
 else 
