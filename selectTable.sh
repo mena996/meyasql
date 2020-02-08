@@ -17,5 +17,5 @@ awk -F: '{ print $0 }' $check;
 echo
 
 fi
-
+. ./tableManager.sh
 

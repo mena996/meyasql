@@ -17,7 +17,7 @@ echo "Enter Table Name"
 read tableName
 
 # if [ -f "~/meyasql/$databaseName/$tableName" ]; then
-if [ -f "~/meyasql/$databaseName/$tableName" ]; then
+if [ -f "$HOME/meyasql/$databaseName/$tableName" ]; then
 echo "That table already exists .. !!!"
 . ./tableManager.sh
 else
@@ -29,9 +29,10 @@ echo "The table created Successfully ... !!!"
 fi
 ;;
 "Insert")
-. ./insertTable.sh
+. ./insertTable.sh $tableName
 ;;
 "Delete")
+. ./deleteTable.sh
 ;;
 "Select")
 . ./selectTable.sh

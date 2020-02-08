@@ -48,7 +48,7 @@ do
             ;;
 
         2 )
-            . ./tableManager
+            . ./tableManager.sh
             ;;
     esac
 done
