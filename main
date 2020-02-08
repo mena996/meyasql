@@ -6,9 +6,9 @@ case $mode in
 if [ -d ~/meyasql ] 
 then
 ls ~/meyasql
-else 
-mkdir ~/meyasql
-ls ~/meyasql
+. ./main
+else
+. ./main
 fi
 ;;
 "create data base")

@@ -7,7 +7,8 @@ if [[ ${#tablesList[@]} != 0 ]]; then
     echo -n "enter the name of table from ( ${tablesList[@]} ) :  "
     read tblName
 
-    if [ -f "/home/yahya/meyasql/$databaseName/$tblName" ]; then
+    if [ -f "~/meyasql/$databaseName/$tblName" ]; then
+    
     
     else
     echo "This table doesnot exist .. !!!"

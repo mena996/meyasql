@@ -16,9 +16,8 @@ fi
 echo "Enter Table Name"
 read tableName
 
-ls ~/meyasql/$databaseName/$tableName
 # if [ -f "~/meyasql/$databaseName/$tableName" ]; then
-if [ -f "/home/yahya/meyasql/$databaseName/$tableName" ]; then
+if [ -f "~/meyasql/$databaseName/$tableName" ]; then
 echo "That table already exists .. !!!"
 . ./tableManager.sh
 else
@@ -39,7 +38,6 @@ fi
 ;;
 "Exit")
 #break 1
-#cd /home/yahya/BashScript/BashProject/meyasql
 . ./main
 esac
 done
