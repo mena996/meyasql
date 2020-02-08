@@ -53,7 +53,54 @@ done
 fi
 ;;
 "Insert")
-. $home/insertTable.sh
+echo -n "enter the name of table to show from ( $databaseName ) :  "
+read tableName
+while [ ! -f ~/meyasql/$databaseName/$tableName ]
+do
+echo -n "table doesnot exist!!!"
+echo -n "enter the name of table to show from ( $databaseName ) :  "
+read tableName
+done
+colNo=`wc -l ~/meyasql/$databaseName/.$tableName | cut -d " " -f 1`
+newRecord=""
+for (( c=1; c<=$colNo; c++ ))
+do  
+    result=`sed -n "$c p" ~/meyasql/$databaseName/.$tableName`
+    fieldName=`echo $result | cut -d ":" -f 1`
+    dataType=`echo $result | cut -d ":" -f 2`
+    case $dataType in
+    "integer")
+      echo "enter the value of ($fieldName) with data type ($dataType)"
+      read data
+      re='^[0-9]+$'
+      while ! [[ $data =~ $re ]] 
+      do
+        echo "wrong input "
+        echo "enter the value of ($fieldName) with data type ($dataType)"
+        read data
+      done
+      newRecord=$newRecord$data":"
+    ;;
+    "string")
+        echo "enter the value of ($fieldName) with data type ($dataType)"
+        read data
+        re='^[^:]*$'
+        while ! [[ $data =~ $re ]] 
+      do
+        echo "wrong input "
+        echo "enter the value of ($fieldName) with data type ($dataType)"
+        read data
+      done
+      newRecord=$newRecord$data":"
+    ;;
+    esac
+done
+echo ${newRecord::-1} >> ~/meyasql/$databaseName/$tableName
+echo "new record inserted"
+
+
+
+#. $home/insertTable.sh
 ;;
 "Delete")
 echo -n "enter the name of table to show from ( $databaseName ) :  "
