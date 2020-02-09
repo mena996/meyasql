@@ -42,7 +42,7 @@ do
   echo "$fieldName:integer" >>".$tableName"
   break;
   ;;
-  "string")recodNo
+  "string")
   echo "$fieldName:string" >>".$tableName"
   break;
   ;;

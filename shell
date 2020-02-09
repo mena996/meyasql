@@ -1,0 +1,139 @@
+#!/usr/bin/bash
+set -f
+case $1 in
+"select")
+    if [ -f ${@: -1} ]
+    then
+        column -t -s ":" ${@: -1}
+    else
+        echo "this table is not found"
+    fi
+;;
+"create")
+    case $2 in
+    "table")
+    if [ $useingDb == "true" ]
+    then
+        if [ -f $3 ] 
+        then
+            echo "That table already exists .. !!!"
+        else 
+            touch $3
+            touch ".$3"
+            echo "table created"
+        fi
+    else
+        echo "must use database first"
+    fi
+    
+    ;;
+    "colomn")
+    if [ $useingDb == "true" ]
+    then
+        if [ -f $5 ] 
+        then
+            if [ $7 == "string" ] | [ $7 == "integer" ]
+            then
+                if [ -z `cut -d: -f1 .m1 | grep $3` ]
+                then
+                    echo "$3:$7" >>".$5"
+                    echo "insertion done"
+                else
+                    echo "the colomn name must be unique"
+                fi
+            else
+                echo "wrong data type"
+            fi
+        else 
+            echo "the table doesnot exist"
+        fi
+    else
+        echo "must use database first"
+    fi
+    ;;
+    "database")
+        if [ ! -d ~/meyasql/$3 ] 
+        then
+            mkdir -p ~/meyasql/$3
+            echo "database created"
+            else 
+            echo "database already exist"
+        fi
+    ;;
+
+    esac
+;;
+"insert")
+    if [ -f $3 ]
+    then
+        declare -i colNo=`wc -l ".$3" | cut -d " " -f 1`
+        colNo=$colNo+3
+        if [ $colNo -eq $# ]
+        then
+            data=${@: -$colNo+3}
+            declare -i c=1
+            newRecord=""
+            flag="true"
+            for dataField in $data
+            do  
+                newRecord=$newRecord$dataField":"
+                result=`sed -n "$c p" .$3`
+                fieldName=`echo $result | cut -d ":" -f 1`
+                dataType=`echo $result | cut -d ":" -f 2`
+                case $dataType in
+                "integer")
+                    re='^[0-9]+$'
+                    if ! [[ $dataField =~ $re ]] 
+                    then
+                        flag="false"
+                    fi
+                    ;;
+                "string")
+                    re='^[^:]*$'
+                    if ! [[ $dataField =~ $re ]] 
+                    then
+                        flag="false"
+                    fi
+                ;;
+                esac
+                c=$c+1
+            done
+            if [ $flag == "true" ]
+            then
+                echo ${newRecord::-1} >> $3
+                echo "new record inserted"
+            else
+                echo "error in values data type"
+            fi
+        else
+            echo "error in querey(prameters number)"
+        fi
+    else
+        echo "this table is not found"
+    fi
+;;
+"delete")
+    if [ -f ${@: -1} ]
+    then
+        rm -f temp
+        awk -F:  -v val="$2" 'BEGIN{c=1}{if(val!=c) print $0; c=c+1}' ${@: -1}  >> temp  
+        cat temp > ${@: -1}
+        echo "the delete done"
+    else
+        echo "this table is not found"
+    fi
+;;
+"use")
+    if [ -d ~/meyasql/$2 ] 
+    then
+        cd ~/meyasql/$2
+        useingDb="true"
+        echo "database connected"
+        else
+        echo "database not found !!!"
+    fi
+;;
+*)
+    echo "unknown commad we may support it later ;)"
+esac
+set +f 

@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 home=`pwd`
-select mode in "list database" "create data base" "connect to data base" "exit"
+select mode in "list database" "create data base" "connect to data base" "shell" "exit"
 do
 case $mode in 
 "list database")
@@ -25,6 +25,20 @@ fi
 ;;
 "connect to data base")
 . ./tableManager.sh
+;;
+"shell")
+useingDb="false"
+echo "enter the querey :"
+read querey
+while [[ $querey != "." ]]
+do
+set -f
+. $home/shell $querey
+set +f
+read querey
+done
+cd $home
+echo "bye :)"
 ;;
 "exit")
 exit
