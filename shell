@@ -32,9 +32,9 @@ case $1 in
     then
         if [ -f $5 ] 
         then
-            if [ $7 == "string" ] | [ $7 == "integer" ]
+            if [ $7 == "integer" ] || [ $7 == "string" ];
             then
-                if [ -z `cut -d: -f1 .m1 | grep $3` ]
+                if [ -z `cut -d: -f1 ".$5" | grep $3` ]
                 then
                     echo "$3:$7" >>".$5"
                     echo "insertion done"
@@ -67,10 +67,11 @@ case $1 in
     if [ -f $3 ]
     then
         declare -i colNo=`wc -l ".$3" | cut -d " " -f 1`
-        colNo=$colNo+3
+        colNo=$colNo+4
         if [ $colNo -eq $# ]
         then
-            data=${@: -$colNo+3}
+            data=${@: -$colNo+4}
+	echo $data
             declare -i c=1
             newRecord=""
             flag="true"
